@@ -10,7 +10,7 @@ public class Driver
 		for(int i = 0; i < 12; i++)
 		{
 			b.addContribution(new Contribution(100, month));
-		    month = month * 12;
+		    month = month + 12;
 		}
 		
 		int totalInvestmentTime = 156;
