@@ -36,9 +36,20 @@ public class Investment
 		
 		if(temp != null)
 		{
-			//I had found a debit, now I need to take money out of the investment
-			//print out of money if we run dry!!!!
-			//IMPLEMENT THIS SO THAT DEBITS ARE CORRECTLY TAKEN
+			//I have a debit I need to make
+			double amountLeft = temp.amount;
+			for(Contribution c : this.theContributions)
+			{
+				amountLeft = c.attemptToDebitAmount(amountLeft, month);
+				if(amountLeft == 0)
+				{
+					break; //I am done debittttting and have succcccceeeeeded
+				}
+			}	
+			if(amountLeft > 0)
+			{
+				System.err.println("I ran out of money!!!!!");
+			}
 		}
 	}
 	
@@ -48,12 +59,12 @@ public class Investment
 		//time and an average 8% yearly or 0.67% monthly return
 		//over afterHowManyMonths number of months
 		double earningPercent = 0.67;
-		for(int i = 0; i < afterHowManyMonths; i++)
+		for(int currMonth = 1; currMonth <= afterHowManyMonths; currMonth++)
 		{
-			this.executeDebits(i); //execute debits for the current month
+			this.executeDebits(currMonth); //execute debits for the current month
 			for(int j = 0; j < this.theContributions.size(); j++)
 			{
-				this.theContributions.get(j).tryToApplyInterest(earningPercent, i);
+				this.theContributions.get(j).tryToApplyInterest(earningPercent, currMonth);
 			}
 		}
 		
